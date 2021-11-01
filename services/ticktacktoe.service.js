@@ -3,9 +3,8 @@ const serverPlayer = 'o';
 
 exports.bestNextMove = (boardDecoded) => {
   let origBoard = populateBoard(boardDecoded);
-  const result = calculateBestMove(origBoard, serverPlayer);
-  console.log(result);
-  return result;
+  const { index } = calculateBestMove(origBoard, serverPlayer);
+  return addMoveInBoard(boardDecoded, index);
 };
 
 // ------- private methods ---------
@@ -16,8 +15,8 @@ function populateBoard(board) {
   for (let index = 0; index < defaultBoard.length; index++) {
     const element = board[index];
     if (element === 'x' || element === 'o') {
-        defaultBoard[index] = board[index];
-    } 
+      defaultBoard[index] = board[index];
+    }
   }
   return defaultBoard;
 }
@@ -92,4 +91,11 @@ function winning(board, player) {
 
 function emptyIndexies(board) {
   return board.filter((s) => s != 'o' && s != 'x');
+}
+
+function addMoveInBoard(oldBoard, index) {
+  let arrayBoard = oldBoard.split('');
+  arrayBoard[index] = serverPlayer;
+
+  return { newBoard: arrayBoard.join('') };
 }

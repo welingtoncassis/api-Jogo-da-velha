@@ -1,5 +1,6 @@
 const Service = require('../services/ticktacktoe.service');
 const Validator = require('../services/validator.service');
+const serverPlayer = 'o';
 
 exports.bestNextMove = (req, res) => {
   try {
@@ -11,9 +12,7 @@ exports.bestNextMove = (req, res) => {
     }
 
     Validator.validationBoard(board);
-    const result = Service.bestNextMove(board);
-    
-    res.send(result);
+    res.send(Service.bestNextMove(board));
   } catch (error) {
     res.status(500).send({
       message:
