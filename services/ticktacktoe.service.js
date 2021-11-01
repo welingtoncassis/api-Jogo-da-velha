@@ -11,18 +11,19 @@ exports.bestNextMove = (boardDecoded) => {
 // ------- private methods ---------
 
 function populateBoard(board) {
-  let defaultBoard = [0, 1, 2, 3, 4, 4, 6, 7, 8];
+  let defaultBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
   for (let index = 0; index < defaultBoard.length; index++) {
-    if (board[index].trim()) {
-      defaultBoard[index] = board[index];
-    }
+    const element = board[index];
+    if (element === 'x' || element === 'o') {
+        defaultBoard[index] = board[index];
+    } 
   }
   return defaultBoard;
 }
 
 function calculateBestMove(newBoard, player) {
-  const availSpots = emptyIndexies(newBoard);
+  let availSpots = emptyIndexies(newBoard);
   if (winning(newBoard, clientPlayer)) {
     return { score: -10 };
   } else if (winning(newBoard, serverPlayer)) {
